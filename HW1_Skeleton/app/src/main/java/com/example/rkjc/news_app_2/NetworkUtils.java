@@ -14,13 +14,17 @@ import java.net.URL;
 import java.util.Scanner;
 import android.util.Log;
 
+
 public class NetworkUtils {
-    final static String TAG = NetworkUtils.class.getSimpleName();
-    final static String BASE_URL = "https://newsapi.org/v2/everything?q=bitcoin&from=2018-10-05&sortBy=publishedAt&apiKey=71f65f7b6de84822a511758080818f5e";
-    final static String API_KEY = "71f65f7b6de84822a511758080818f5e";
-    public static URL buildUrl(String location) {
+    private static final String TAG = NetworkUtils.class.getSimpleName();
+
+    private static final String BASE_URL = "https://newsapi.org/v1/articles";
+
+    public static URL buildUrl() {
         Uri builtUri = Uri.parse(BASE_URL).buildUpon()
-                .appendQueryParameter(API_KEY, location )
+                .appendQueryParameter("source","the-next-web" )
+                .appendQueryParameter("sortBy", "latest")
+                .appendQueryParameter("apiKey","71f65f7b6de84822a511758080818f5e")
                 .build();
 
         URL url = null;
@@ -29,6 +33,7 @@ public class NetworkUtils {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+
         return url;
     }
 
@@ -51,5 +56,4 @@ public class NetworkUtils {
             urlConnection.disconnect();
         }
     }
-
 }
